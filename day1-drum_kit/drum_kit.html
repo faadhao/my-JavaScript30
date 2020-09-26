@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Drump</title>
+    <style>
+      html {
+        font-size: 10px;
+        background: url(./images/background.png) bottom center;
+        background-size: cover;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+      .keys {
+        display: flex;
+        flex: 1;
+        min-height: 100vh;
+        align-items: center;
+        justify-content: center;
+      }
+      .key {
+        border: 0.4rem solid black;
+        border-radius: 1rem;
+        margin: 1rem;
+        font-size: 1.5rem;
+        padding: 1rem 0.5rem;
+        transition: all 0.07s ease;
+        width: 10rem;
+        text-align: center;
+        color: skyblue;
+        text-shadow: 0 0 0.5rem black;
+      }
+      .keyA {
+        background: url(./images/水柱.png);
+        opacity: 0.5;
+        background-size: cover;
+      }
+      .keyS {
+        background: url(./images/蟲柱.png);
+        opacity: 0.5;
+        background-size: cover;
+      }
+      .keyD {
+        background: url(./images/風柱.png);
+        opacity: 0.5;
+        background-size: cover;
+      }
+      .keyF {
+        background: url(./images/蛇柱.png);
+        opacity: 0.5;
+        background-size: cover;
+      }
+      .keyG {
+        background: url(./images/戀柱.png);
+        opacity: 0.5;
+        background-size: cover;
+      }
+      .keyH {
+        background: url(./images/岩柱.png);
+        opacity: 0.5;
+        background-size: cover;
+      }
+      .keyJ {
+        background: url(./images/霞柱.png);
+        opacity: 0.5;
+        background-size: cover;
+      }
+      .keyK {
+        background: url(./images/音柱.png);
+        opacity: 0.5;
+        background-size: cover;
+      }
+      .keyL {
+        background: url(./images/炎柱.png);
+        opacity: 0.5;
+        background-size: cover;
+      }
+      .playing {
+        transform: scale(1.1);
+        border-color: #ffc600;
+        box-shadow: 0 0 1rem #ffc600;
+      }
+      kbd {
+        display: block;
+        font-size: 4rem;
+      }
+      .sound {
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+        color: chartreuse;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="keys">
+      <div data-key="65" class="key keyA">
+        <kbd>A</kbd>
+        <span class="sound">clap</span>
+      </div>
+      <div data-key="83" class="key keyS">
+        <kbd>S</kbd>
+        <span class="sound">hithat</span>
+      </div>
+      <div data-key="68" class="key keyD">
+        <kbd>D</kbd>
+        <span class="sound">kick</span>
+      </div>
+      <div data-key="70" class="key keyF">
+        <kbd>F</kbd>
+        <span class="sound">openhat</span>
+      </div>
+      <div data-key="71" class="key keyG">
+        <kbd>G</kbd>
+        <span class="sound">boom</span>
+      </div>
+      <div data-key="72" class="key keyH">
+        <kbd>H</kbd>
+        <span class="sound">ride</span>
+      </div>
+      <div data-key="74" class="key keyJ">
+        <kbd>J</kbd>
+        <span class="sound">snare</span>
+      </div>
+      <div data-key="75" class="key keyK">
+        <kbd>K</kbd>
+        <span class="sound">tom</span>
+      </div>
+      <div data-key="76" class="key keyL">
+        <kbd>L</kbd>
+        <span class="sound">tink</span>
+      </div>
+    </div>
+    <audio data-key="65" src="sounds/clap.wav"></audio>
+    <audio data-key="83" src="sounds/hihat.wav"></audio>
+    <audio data-key="68" src="sounds/kick.wav"></audio>
+    <audio data-key="70" src="sounds/openhat.wav"></audio>
+    <audio data-key="71" src="sounds/boom.wav"></audio>
+    <audio data-key="72" src="sounds/ride.wav"></audio>
+    <audio data-key="74" src="sounds/snare.wav"></audio>
+    <audio data-key="75" src="sounds/tom.wav"></audio>
+    <audio data-key="76" src="sounds/tink.wav"></audio>
+    <script>
+      function playSound(e) {
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        if (audio) {
+          audio.currentTime = 0;
+          audio.play();
+        }
+        const dom = document.querySelector(`div[data-key="${e.keyCode}"]`);
+        if (dom) {
+          dom.classList.add("playing");
+        }
+      }
+      function transitionendSound(e) {
+        if (e.propertyName === "transform") {
+          e.currentTarget.classList.remove("playing");
+        }
+      }
+      window.addEventListener("keydown", playSound);
+      document.querySelectorAll(".key").forEach(function (key) {
+        key.addEventListener("transitionend", transitionendSound);
+      });
+    </script>
+  </body>
+</html>
