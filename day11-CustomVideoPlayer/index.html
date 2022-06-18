@@ -59,9 +59,8 @@
         toggle.textContent = icon;
       };
 
-      const skip = () => {
-        const skip = this.dataset.skip
-        video.currentTime += parseFloat(this.dataset.skip);
+      const skip = (e) => {
+        video.currentTime += parseFloat(e.path[0].dataset.skip);
       };
 
       const handleRangeUpdate = (e) => {
